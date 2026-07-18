@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Passport & Visa Photo Resizer - Free Online Tool</title>
+    <style>
+        :root {
+            --primary-color: #0066cc;
+            --primary-hover: #0052a3;
+            --bg-color: #f5f7fa;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #cccccc;
+            --btn-bg: #eeeeee;
+            --btn-hover: #e0e0e0;
+            --input-bg: #ffffff;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --border-color: #444444;
+            --btn-bg: #2d2d2d;
+            --btn-hover: #3d3d3d;
+            --input-bg: #2d2d2d;
+        }
+        
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            flex-direction: column;
+        }
+
+        .theme-toggle {
+            align-self: flex-end;
+            max-width: 650px;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 10px;
+        }
+
+        .btn-theme {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 650px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .drop-zone {
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 30px 20px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            background-color: rgba(0,0,0,0.01);
+            text-align: center;
+        }
+
+        .drop-zone:hover {
+            border-color: var(--primary-color);
+        }
+
+        .preview-container {
+            margin: 20px 0;
+            display: none;
+            text-align: center;
+        }
+
+        .preview-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: #2ec4b6;
+            margin-bottom: 10px;
+        }
+
+        .preview-box {
+            max-width: 220px;
+            margin: 0 auto;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preview-box img {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Passport Face Guide Grid Overlay */
+        .preview-box::before {
+            content: '';
+            position: absolute;
+            top: 15%;
+            left: 15%;
+            right: 15%;
+            bottom: 25%;
+            border: 1px dashed rgba(0, 102, 204, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .control-section {
+            background: rgba(0,0,0,0.02);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            font-size: 13px;
+        }
+
+        .custom-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn-download {
+            display: none;
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-download:hover {
+            background-color: var(--primary-hover);
+        }
+
+        #file-input {
+            display: none;
+        }
+
+        .slider-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .slider-group input {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="theme-toggle">
+    <button class="btn-theme" onclick="toggleTheme()">🌙 Toggle Theme</button>
+</div>
+
+<div class="container">
+    <h1>Universal Passport & Visa Photo Resizer</h1>
+    <div class="subtitle">Resize, crop, and compress photos instantly for any global official document requirement.</div>
+    
+    <div class="drop-zone" id="drop-zone">
+        <span id="drop-text">Drag & Drop your photo here or Click to Browse (JPG/PNG)</span>
+        <input type="file" id="file-input" accept="image/*">
+    </div>
+
+    <div class="preview-container" id="preview-container">
+        <div class="preview-title" id="status-text">Success! New Size: 0 KB</div>
+        <div class="preview-box" id="preview-box">
+            <img id="output-img" src="" alt="Preview">
+        </div>
+    </div>
+
+    <!-- Step 1: Broad Template Selection -->
+    <div class="control-section">
+        <div class="section-title">Step 1: Select Country / Region Template</div>
+        <div class="form-group">
+            <select id="preset-select" onchange="handlePresetChange()">
+                <optgroup label="Popular Global Standards">
+                    <option value="us">United States (Passport / Visa / Green Card) - 2x2 in</option>
+                    <option value="uk">United Kingdom (Passport) - 35x45 mm</option>
+                    <option value="schengen">Schengen Area / Europe (Visa/Passport) - 35x45 mm</option>
+                    <option value="ca">Canada (Passport) - 50x70 mm</option>
+                    <option value="au">Australia (Passport) - 35x45 mm</option>
+                </optgroup>
+                <optgroup label="Asian Countries">
+                    <option value="sl">Sri Lanka (Passport / NIC / Driving License) - 35x45 mm</option>
+                    <option value="in">India (Passport / OCI / Visa) - 2x2 in</option>
+                    <option value="cn">China (Passport / Visa) - 33x48 mm</option>
+                    <option value="jp">Japan (Passport) - 35x45 mm</option>
+                    <option value="ae">United Arab Emirates / UAE (Visa) - 43x55 mm</option>
+                    <option value="sg">Singapore (Passport) - 35x45 mm</option>
+                    <option value="my">Malaysia (Passport) - 35x50 mm</option>
+                    <option value="sa">Saudi Arabia (Visa) - 2x2 in</option>
+                </optgroup>
+                <optgroup label="Other Countries">
+                    <option value="nz">New Zealand (Passport) - 35x45 mm</option>
+                    <option value="za">South Africa (Passport) - 35x45 mm</option>
+                    <option value="br">Brazil (Passport) - 50x70 mm</option>
+                </optgroup>
+                <option value="custom">-- CUSTOM DIMENSIONS (Manually Adjust Below) --</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Step 2: Fine-Tuning Dimensions & Compression -->
+    <div class="control-section">
+        <div class="section-title">Step 2: Fine-Tune Specifications</div>
+        <div class="custom-grid">
+            <div class="form-group">
+                <label>Width (pixels)</label>
+                <input type="number" id="custom-w" value="600" oninput="triggerProcessing()">
+            </div>
+            <div class="form-group">
+                <label>Height (pixels)</label>
+                <input type="number" id="custom-h" value="600" oninput="triggerProcessing()">
+            </div>
+            <div class="form-group">
+                <label>Max File Size (KB)</label>
+                <input type="number" id="custom-kb" value="240" oninput="triggerProcessing()">
+            </div>
+        </div>
+        <div class="form-group" style="margin-top: 5px;">
+            <label>Manual Quality Fine-Tune</label>
+            <div class="slider-group">
+                <input type="range" id="quality-slider" min="10" max="100" value="95" oninput="processImage()">
+                <span id="slider-val" style="font-size:12px; font-weight:bold;">95%</span>
+            </div>
+        </div>
+    </div>
+
+    <a href="#" class="btn-download" id="download-btn" download="official_ready_photo.jpg">Download Processed Photo</a>
+</div>
+
+<script>
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const dropText = document.getElementById('drop-text');
+    const previewContainer = document.getElementById('preview-container');
+    const outputImg = document.getElementById('output-img');
+    const previewBox = document.getElementById('preview-box');
+    const statusText = document.getElementById('status-text');
+    const downloadBtn = document.getElementById('download-btn');
+    
+    const presetSelect = document.getElementById('preset-select');
+    const inputW = document.getElementById('custom-w');
+    const inputH = document.getElementById('custom-h');
+    const inputKB = document.getElementById('custom-kb');
+    const qualitySlider = document.getElementById('quality-slider');
+    const sliderVal = document.getElementById('slider-val');
+    
+    let originalImage = null;
+    
+    // Comprehensive Database of Global Specifications
+    const presets = {
+        us: { w: 600, h: 600, maxKB: 240 },
+        uk: { w: 413, h: 531, maxKB: 500 },
+        schengen: { w: 413, h: 531, maxKB: 240 },
+        ca: { w: 600, h: 840, maxKB: 600 },
+        au: { w: 413, h: 531, maxKB: 120 },
+        sl: { w: 413, h: 531, maxKB: 150 },
+        in: { w: 600, h: 600, maxKB: 50 },
+        cn: { w: 390, h: 567, maxKB: 40 },
+        jp: { w: 413, h: 531, maxKB: 300 },
+        ae: { w: 508, h: 650, maxKB: 100 },
+        sg: { w: 400, h: 514, maxKB: 150 },
+        my: { w: 413, h: 591, maxKB: 300 },
+        sa: { w: 600, h: 600, maxKB: 100 },
+        nz: { w: 900, h: 1200, maxKB: 3000 },
+        za: { w: 413, h: 531, maxKB: 500 },
+        br: { w: 591, h: 827, maxKB: 300 }
+    };
+
+    function toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        if (currentTheme === 'dark') {
+            document.documentElement.removeAttribute('data-theme');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    }
+
+    dropZone.addEventListener('click', () => fileInput.click());
+    
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.style.borderColor = 'var(--primary-color)';
+    });
+    
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.style.borderColor = 'var(--border-color)';
+    });
+    
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.style.borderColor = 'var(--border-color)';
+        if(e.dataTransfer.files.length) {
+            handleFile(e.dataTransfer.files[0]);
+        }
+    });
+
+    fileInput.addEventListener('change', (e) => {
+        if(e.target.files.length) {
+            handleFile(e.target.files[0]);
+        }
+    });
+
+    function handleFile(file) {
+        if(!file.type.startsWith('image/')) {
+            alert('Please select a valid image file.');
+            return;
+        }
+        
+        dropText.innerText = "Selected file: " + file.name;
+        
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            originalImage = new Image();
+            originalImage.onload = function() {
+                processImage();
+            };
+            originalImage.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function handlePresetChange() {
+        const selected = presetSelect.value;
+        if (selected !== 'custom') {
+            const config = presets[selected];
+            inputW.value = config.w;
+            inputH.value = config.h;
+            inputKB.value = config.maxKB;
+        }
+        processImage();
+    }
+
+    function triggerProcessing() {
+        presetSelect.value = 'custom';
+        processImage();
+    }
+
+    function processImage() {
+        if(!originalImage) return;
+        
+        const targetW = parseInt(inputW.value) || 300;
+        const targetH = parseInt(inputH.value) || 300;
+        const maxKB = parseInt(inputKB.value) || 200;
+        
+        sliderVal.innerText = qualitySlider.value + '%';
+        
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = targetW;
+        canvas.height = targetH;
+        
+        // Fix aspect ratio representation dynamically inside preview box
+        previewBox.style.height = (220 * (targetH / targetW)) + 'px';
+        
+        const targetAspect = targetW / targetH;
+        const inputAspect = originalImage.width / originalImage.height;
+        
+        let srcX = 0, srcY = 0, srcW = originalImage.width, srcH = originalImage.height;
+        
+        if (inputAspect > targetAspect) {
+            srcW = originalImage.height * targetAspect;
+            srcX = (originalImage.width - srcW) / 2;
+        } else {
+            srcH = originalImage.width / targetAspect;
+            srcY = (originalImage.height - srcH) / 2;
+        }
+        
+        ctx.drawImage(originalImage, srcX, srcY, srcW, srcH, 0, 0, targetW, targetH);
+        
+        let initialQuality = parseFloat(qualitySlider.value) / 100;
+        let dataUrl = canvas.toDataURL('image/jpeg', initialQuality);
+        let sizeKB = Math.round((dataUrl.length * 3 / 4) / 1024);
+        
+        // Auto compress strictly below max file size limit if still exceeds
+        while (sizeKB > maxKB && initialQuality > 0.1) {
+            initialQuality -= 0.05;
+            dataUrl = canvas.toDataURL('image/jpeg', initialQuality);
+            sizeKB = Math.round((dataUrl.length * 3 / 4) / 1024);
+        }
+        
+        outputImg.src = dataUrl;
+        statusText.innerText = `Success! Processed Size: ${sizeKB} KB (${targetW}x${targetH} px)`;
+        
+        downloadBtn.href = dataUrl;
+        downloadBtn.download = `ready_photo_${Date.now()}.jpg`;
+        
+        previewContainer.style.display = 'block';
+        downloadBtn.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
