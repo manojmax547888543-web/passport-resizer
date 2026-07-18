@@ -473,7 +473,7 @@
         // Templates configuration mapping
         const templates = {
             custom: { w: '', h: '', size: 500, circle: false },
-            us: { w: 600, h: 600, size: 240, circle: true, cW: 360, cH: 360 }, // Roughly 60% biometric zone
+            us: { w: 600, h: 600, size: 240, circle: true, cW: 360, cH: 360 }, 
             lk: { w: 413, h: 531, size: 150, circle: true, cW: 260, cH: 340 },
             eu: { w: 413, h: 531, size: 240, circle: true, cW: 260, cH: 340 },
             ca: { w: 600, h: 840, size: 600, circle: true, cW: 350, cH: 520 },
@@ -519,7 +519,7 @@
             dropZone.style.borderColor = '#004499';
         });
         dropZone.addEventListener('dragleave', () => {
-            dropZone.style.borderColor = var(--primary-color);
+            dropZone.style.borderColor = '#0066cc';
         });
         dropZone.addEventListener('drop', (e) => {
             e.preventDefault();
@@ -557,17 +557,14 @@
             const tW = parseInt(targetWidth.value) || 600;
             const tH = parseInt(targetHeight.value) || 600;
             
-            // Aspect ratio calculation to cover the canvas target container perfectly
             const scaleW = tW / originalImage.width;
             const scaleH = tH / originalImage.height;
             imgScale = Math.max(scaleW, scaleH);
             
-            // Center alignment math coordinates
             imgX = (tW - originalImage.width * imgScale) / 2;
             imgY = (tH - originalImage.height * imgScale) / 2;
         }
 
-        // Template selector automation controller
         templateSelect.addEventListener('change', () => {
             const config = templates[templateSelect.value];
             if(templateSelect.value !== 'custom') {
@@ -591,7 +588,6 @@
             processImage();
         });
 
-        // Canvas interactions for positioning adjustment maps
         canvasContainer.addEventListener('mousedown', (e) => {
             isDragging = true;
             startX = e.clientX - imgX;
@@ -607,7 +603,6 @@
             processImage();
         });
 
-        // Zoom scaling controller implementation via trackpad wheel
         canvasContainer.addEventListener('wheel', (e) => {
             if(!originalImage) return;
             e.preventDefault();
@@ -615,7 +610,6 @@
             const mouseX = e.clientX - canvasContainer.getBoundingClientRect().left;
             const mouseY = e.clientY - canvasContainer.getBoundingClientRect().top;
             
-            // Normalize math calculation anchors to enable zooming dynamically onto pointer point crosshairs
             const wheel = e.deltaY < 0 ? 1 : -1;
             const zoom = Math.exp(wheel * zoomIntensity);
             
@@ -636,14 +630,11 @@
             canvas.width = tW;
             canvas.height = tH;
 
-            // Clear configuration canvas context
             ctx.fillStyle = "#ffffff";
             ctx.fillRect(0, 0, tW, tH);
 
-            // Redraw image matching real-time coordinate changes
             ctx.drawImage(originalImage, imgX, imgY, originalImage.width * imgScale, originalImage.height * imgScale);
 
-            // Update overlay framework positioning parameters matching configurations
             const currentTemplate = templates[templateSelect.value];
             if (currentTemplate && currentTemplate.circle) {
                 biometricGuide.style.display = 'block';
@@ -657,7 +648,6 @@
             let dataUrl = canvas.toDataURL('image/jpeg', initialQuality);
             let sizeKB = Math.round((dataUrl.length * 3 / 4) / 1024);
 
-            // Auto compress strictly below max file size limit if still exceeds
             while (sizeKB > maxKB && initialQuality > 0.1) {
                 initialQuality -= 0.05;
                 dataUrl = canvas.toDataURL('image/jpeg', initialQuality);
