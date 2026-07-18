@@ -59,6 +59,7 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            z-index: 10;
         }
 
         .container {
@@ -195,23 +196,20 @@
             margin: 20px 0;
             max-width: 100%;
             border: 1px solid var(--border-color);
+            overflow: hidden;
+            background: #eee;
         }
 
         #previewCanvas {
             max-width: 100%;
             height: auto;
             display: block;
+            cursor: grab;
+            touch-action: none; /* Prevents mobile page scrolling when dragging */
         }
 
-        .biometric-circle {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border: 2px dashed #ff3b30;
-            border-radius: 50%;
-            pointer-events: none;
-            display: none;
+        #previewCanvas:active {
+            cursor: grabbing;
         }
 
         .btn-download {
@@ -226,6 +224,7 @@
             transition: background 0.2s;
             text-decoration: none;
             display: inline-block;
+            margin-top: 15px;
         }
 
         .btn-download:hover {
@@ -237,22 +236,7 @@
             font-size: 0.9rem;
             color: #28a745;
             font-weight: bold;
-        }
-
-        /* Info & Matrix Styling */
-        .info-section {
-            max-width: 800px;
-            width: 100%;
-            margin-top: 40px;
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            box-sizing: border-box;
-        }
-
-        .info-section h2, .info-section h3 {
-            color: var(--primary-color);
+            min-height: 20px;
         }
 
         .matrix-table {
@@ -271,6 +255,21 @@
         .matrix-table th {
             background-color: rgba(0, 102, 204, 0.05);
             font-weight: bold;
+        }
+
+        .info-section {
+            max-width: 800px;
+            width: 100%;
+            margin-top: 40px;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+        }
+
+        .info-section h2, .info-section h3 {
+            color: var(--primary-color);
         }
 
         .faq-item {
@@ -368,15 +367,14 @@
 
         <div class="preview-area" id="previewArea">
             <div class="step-title">Step 3: Preview & Biometric Alignment</div>
-            <p style="font-size: 0.85rem; color: #666;">Drag image inside the box to center face properly if needed.</p>
+            <p style="font-size: 0.85rem; color: #666;">Drag image inside the box to center face properly. (Use mouse scroll wheel to Zoom)</p>
             
             <div class="canvas-container" id="canvasContainer">
                 <canvas id="previewCanvas"></canvas>
-                <div class="biometric-circle" id="biometricGuide"></div>
             </div>
 
             <div>
-                <a id="downloadBtn" class="btn-download" href="#">Download Ready Photo</a>
+                <button id="downloadBtn" class="btn-download">Download Ready Photo</button>
                 <div class="status-text" id="statusText"></div>
             </div>
         </div>
@@ -385,7 +383,7 @@
     <!-- Educational SEO Content Section -->
     <div class="info-section">
         <h2>Official Global Document Size Reference Matrix</h2>
-        <p>Different governments enforce strict digital and physical dimensions for standard applications. Below is a detailed standard directory used natively inside our configuration dashboard:</p>
+        <p>Different governments enforce strict digital and physical dimensions for standard applications.</p>
         
         <table class="matrix-table">
             <thead>
@@ -429,38 +427,7 @@
                 </tr>
             </tbody>
         </table>
-
-        <h2>Complete Guide to Taking Perfect Passport & Visa Photos at Home</h2>
-        <p>Creating an official government-compliant passport or visa photo doesn't require an expensive trip to a professional studio. By leveraging our intelligent <strong>Universal Passport Photo Resizer</strong>, you can instantly crop, format, and compress your image to match exact requirements globally. However, to ensure your application is never rejected, follow these mandatory baseline rules:</p>
-        <ul>
-            <li><strong>Background:</strong> Always use a plain white or off-white background. Ensure there are no patterns, objects, or shadows visible behind you.</li>
-            <li><strong>Lighting:</strong> Bright, even lighting is crucial. Avoid harsh side-lighting that creates deep shadows on one side of the face or under the eyes.</li>
-            <li><strong>Expression & Biometrics:</strong> Maintain a neutral facial expression. Do not smile broadly, frown, or tilt your head. Keep both eyes open and look directly into the camera lens.</li>
-            <li><strong>Attire:</strong> Wear normal everyday clothing. Avoid uniforms, white shirts (which blend into the background), and excessive jewelry. Head coverings are only permitted for strict religious or medical reasons, and even then, they must not obscure any part of your face.</li>
-        </ul>
-
-        <h2>Frequently Asked Questions (FAQs)</h2>
-        <div class="faq-item">
-            <div class="faq-question">Q: Can I wear glasses in my passport photo?</div>
-            <div class="faq-answer">A: In most countries, including the US and Sri Lanka, prescription or fashion glasses are strictly prohibited to prevent glare and biometric interference. Always remove your glasses before taking the photo.</div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question">Q: Why does the system compress my file automatically?</div>
-            <div class="faq-answer">A: Most official portals (like immigration and department portals) enforce strict maximum payload capacities. Our tool uses smart iterative compression algorithms to shrink the storage weight without diminishing crucial face details.</div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question">Q: What is the biometric circle template in the preview box?</div>
-            <div class="faq-answer">A: The dashed pattern serves as an alignment indicator. Your head and face structure should perfectly fit within the boundary markers to comply with standard facial structure tracking requirements globally.</div>
-        </div>
     </div>
-
-    <footer>
-        <p>&copy; 2026 Global Passport Resizer Tool. All Rights Reserved.</p>
-        <p>
-            <a href="#" onclick="alert('Privacy Policy: We process all images locally inside your browser. No photo data is uploaded or stored on our servers.'); return false;">Privacy Policy</a> | 
-            <a href="#" onclick="alert('Terms of Service: This utility is provided free of charge. Please verify final dimensions against official government criteria before submission.'); return false;">Terms of Service</a>
-        </p>
-    </footer>
 
     <script>
         // State Management
@@ -470,9 +437,9 @@
         let isDragging = false;
         let startX, startY;
 
-        // Templates configuration mapping
+        // Configuration Templates
         const templates = {
-            custom: { w: '', h: '', size: 500, circle: false },
+            custom: { w: 600, h: 600, size: 500, circle: false },
             us: { w: 600, h: 600, size: 240, circle: true, cW: 360, cH: 360 }, 
             lk: { w: 413, h: 531, size: 150, circle: true, cW: 260, cH: 340 },
             eu: { w: 413, h: 531, size: 240, circle: true, cW: 260, cH: 340 },
@@ -492,16 +459,13 @@
         const previewArea = document.getElementById('previewArea');
         const canvas = document.getElementById('previewCanvas');
         const ctx = canvas.getContext('2d');
-        const biometricGuide = document.getElementById('biometricGuide');
-        const canvasContainer = document.getElementById('canvasContainer');
         const downloadBtn = document.getElementById('downloadBtn');
         const statusText = document.getElementById('statusText');
         const themeToggle = document.getElementById('themeToggle');
 
-        // Theme Handling
+        // Theme Toggle Handler
         themeToggle.addEventListener('click', () => {
-            const currentTheme = document.body.getAttribute('data-theme');
-            if(currentTheme === 'dark') {
+            if(document.body.getAttribute('data-theme') === 'dark') {
                 document.body.removeAttribute('data-theme');
                 document.getElementById('themeIcon').innerText = '🌙';
             } else {
@@ -510,28 +474,18 @@
             }
         });
 
-        // Trigger file selection
+        // Trigger Uploader
         dropZone.addEventListener('click', () => fileInput.click());
         
-        // Drag and drop handlers
-        dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropZone.style.borderColor = '#004499';
-        });
-        dropZone.addEventListener('dragleave', () => {
-            dropZone.style.borderColor = '#0066cc';
-        });
+        dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.borderColor = '#004499'; });
+        dropZone.addEventListener('dragleave', () => { dropZone.style.borderColor = '#0066cc'; });
         dropZone.addEventListener('drop', (e) => {
             e.preventDefault();
-            if(e.dataTransfer.files.length > 0) {
-                handleFile(e.dataTransfer.files[0]);
-            }
+            if(e.dataTransfer.files.length > 0) handleFile(e.dataTransfer.files[0]);
         });
 
         fileInput.addEventListener('change', (e) => {
-            if(e.target.files.length > 0) {
-                handleFile(e.target.files[0]);
-            }
+            if(e.target.files.length > 0) handleFile(e.target.files[0]);
         });
 
         function handleFile(file) {
@@ -540,14 +494,14 @@
                 return;
             }
             const reader = new FileReader();
-            reader.onload = (event) => {
+            reader.onload = (e) => {
                 originalImage = new Image();
                 originalImage.onload = () => {
                     resetImagePosition();
                     previewArea.style.display = 'block';
-                    processImage();
+                    drawPreview();
                 };
-                originalImage.src = event.target.result;
+                originalImage.src = e.target.result;
             };
             reader.readAsDataURL(file);
         }
@@ -556,15 +510,14 @@
             if(!originalImage) return;
             const tW = parseInt(targetWidth.value) || 600;
             const tH = parseInt(targetHeight.value) || 600;
-            
             const scaleW = tW / originalImage.width;
             const scaleH = tH / originalImage.height;
             imgScale = Math.max(scaleW, scaleH);
-            
             imgX = (tW - originalImage.width * imgScale) / 2;
             imgY = (tH - originalImage.height * imgScale) / 2;
         }
 
+        // Templates & Manual Inputs Binding
         templateSelect.addEventListener('change', () => {
             const config = templates[templateSelect.value];
             if(templateSelect.value !== 'custom') {
@@ -573,92 +526,146 @@
                 maxFileSize.value = config.size;
             }
             resetImagePosition();
-            processImage();
+            drawPreview();
         });
 
         [targetWidth, targetHeight, maxFileSize].forEach(el => {
             el.addEventListener('input', () => {
                 templateSelect.value = 'custom';
-                processImage();
+                resetImagePosition();
+                drawPreview();
             });
         });
 
         qualitySlider.addEventListener('input', (e) => {
             qualityVal.innerText = `${e.target.value}%`;
-            processImage();
+            drawPreview();
         });
 
-        canvasContainer.addEventListener('mousedown', (e) => {
+        // Hardened Drag & Zoom Handlers Bound strictly to Canvas Element
+        function getCanvasMousePos(e) {
+            const rect = canvas.getBoundingClientRect();
+            const visualScale = canvas.width / rect.width;
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            return {
+                x: (clientX - rect.left) * visualScale,
+                y: (clientY - rect.top) * visualScale
+            };
+        }
+
+        function startDrag(e) {
+            if(!originalImage) return;
             isDragging = true;
-            startX = e.clientX - imgX;
-            startY = e.clientY - imgY;
-        });
+            const pos = getCanvasMousePos(e);
+            startX = pos.x - imgX;
+            startY = pos.y - imgY;
+        }
 
-        window.addEventListener('mouseup', () => isDragging = false);
-        
-        canvasContainer.addEventListener('mousemove', (e) => {
+        function doDrag(e) {
             if(!isDragging || !originalImage) return;
-            imgX = e.clientX - startX;
-            imgY = e.clientY - startY;
-            processImage();
-        });
+            e.preventDefault();
+            const pos = getCanvasMousePos(e);
+            imgX = pos.x - startX;
+            imgY = pos.y - startY;
+            drawPreview();
+        }
 
-        canvasContainer.addEventListener('wheel', (e) => {
+        function stopDrag() { isDragging = false; }
+
+        // Mouse Events
+        canvas.addEventListener('mousedown', startDrag);
+        window.addEventListener('mousemove', doDrag);
+        window.addEventListener('mouseup', stopDrag);
+
+        // Touch Events for Mobile Compliance
+        canvas.addEventListener('touchstart', startDrag, { passive: false });
+        canvas.addEventListener('touchmove', doDrag, { passive: false });
+        canvas.addEventListener('touchend', stopDrag);
+
+        // Zoom Wheel Listener
+        canvas.addEventListener('wheel', (e) => {
             if(!originalImage) return;
             e.preventDefault();
+            const pos = getCanvasMousePos(e);
             const zoomIntensity = 0.05;
-            const mouseX = e.clientX - canvasContainer.getBoundingClientRect().left;
-            const mouseY = e.clientY - canvasContainer.getBoundingClientRect().top;
-            
             const wheel = e.deltaY < 0 ? 1 : -1;
             const zoom = Math.exp(wheel * zoomIntensity);
             
             imgScale *= zoom;
-            imgX = mouseX - (mouseX - imgX) * zoom;
-            imgY = mouseY - (mouseY - imgY) * zoom;
-            
-            processImage();
-        });
+            imgX = pos.x - (pos.x - imgX) * zoom;
+            imgY = pos.y - (pos.y - imgY) * zoom;
+            drawPreview();
+        }, { passive: false });
 
-        function processImage() {
+        // Screen Rendering Engine
+        function drawPreview() {
             if(!originalImage) return;
-
             const tW = parseInt(targetWidth.value) || 600;
             const tH = parseInt(targetHeight.value) || 600;
-            const maxKB = parseInt(maxFileSize.value) || 300;
 
             canvas.width = tW;
             canvas.height = tH;
 
             ctx.fillStyle = "#ffffff";
             ctx.fillRect(0, 0, tW, tH);
-
             ctx.drawImage(originalImage, imgX, imgY, originalImage.width * imgScale, originalImage.height * imgScale);
 
+            // UI Rendering Overlay (Red Oval Guide Line)
             const currentTemplate = templates[templateSelect.value];
             if (currentTemplate && currentTemplate.circle) {
-                biometricGuide.style.display = 'block';
-                biometricGuide.style.width = `${currentTemplate.cW}px`;
-                biometricGuide.style.height = `${currentTemplate.cH}px`;
-            } else {
-                biometricGuide.style.display = 'none';
+                ctx.save();
+                ctx.strokeStyle = "#ff3b30";
+                ctx.lineWidth = 2;
+                ctx.setLineDash([6, 4]);
+                ctx.beginPath();
+                ctx.ellipse(tW / 2, tH / 2, currentTemplate.cW / 2, currentTemplate.cH / 2, 0, 0, 2 * Math.PI);
+                ctx.stroke();
+                ctx.restore();
             }
+            statusText.innerText = `Ready to extract standard (${tW}x${tH} px)`;
+        }
 
-            let initialQuality = parseFloat(qualitySlider.value) / 100;
-            let dataUrl = canvas.toDataURL('image/jpeg', initialQuality);
+        // Isolated Extraction & Native Browser Download Engine
+        downloadBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if(!originalImage) return;
+
+            const tW = parseInt(targetWidth.value) || 600;
+            const tH = parseInt(targetHeight.value) || 600;
+            const maxKB = parseInt(maxFileSize.value) || 300;
+
+            // Generate Offscreen Canvas to securely purge the UI Alignment Line
+            const exportCanvas = document.createElement('canvas');
+            exportCanvas.width = tW;
+            exportCanvas.height = tH;
+            const exportCtx = exportCanvas.getContext('2d');
+
+            exportCtx.fillStyle = "#ffffff";
+            exportCtx.fillRect(0, 0, tW, tH);
+            exportCtx.drawImage(originalImage, imgX, imgY, originalImage.width * imgScale, originalImage.height * imgScale);
+
+            // Perform Compression
+            let currentQuality = parseFloat(qualitySlider.value) / 100;
+            let dataUrl = exportCanvas.toDataURL('image/jpeg', currentQuality);
             let sizeKB = Math.round((dataUrl.length * 3 / 4) / 1024);
 
-            while (sizeKB > maxKB && initialQuality > 0.1) {
-                initialQuality -= 0.05;
-                dataUrl = canvas.toDataURL('image/jpeg', initialQuality);
+            while (sizeKB > maxKB && currentQuality > 0.1) {
+                currentQuality -= 0.05;
+                dataUrl = exportCanvas.toDataURL('image/jpeg', currentQuality);
                 sizeKB = Math.round((dataUrl.length * 3 / 4) / 1024);
             }
 
-            downloadBtn.href = dataUrl;
-            downloadBtn.download = `ready_photo_${Date.now()}.jpg`;
-            
-            statusText.innerText = `Success! Processed Size: ${sizeKB} KB (${tW}x${tH} px)`;
-        }
+            // Native DOM Download Deployment Vector
+            const tempLink = document.createElement('a');
+            tempLink.href = dataUrl;
+            tempLink.download = `passport_photo_${Date.now()}.jpg`;
+            document.body.appendChild(tempLink);
+            tempLink.click();
+            document.body.removeChild(tempLink);
+
+            statusText.innerText = `Success! Downloaded file size: ${sizeKB} KB`;
+        });
     </script>
 </body>
 </html>
