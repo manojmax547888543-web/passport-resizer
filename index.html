@@ -71,6 +71,7 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 650px;
+            margin-bottom: 30px;
         }
 
         h1 {
@@ -128,7 +129,6 @@
             display: block;
         }
 
-        /* Passport Face Guide Grid Overlay */
         .preview-box::before {
             content: '';
             position: absolute;
@@ -215,6 +215,63 @@
         .slider-group input {
             flex: 1;
         }
+
+        /* Content & Article Styling for AdSense Approval */
+        .content-wrapper {
+            max-width: 650px;
+            width: 100%;
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .content-wrapper h2 {
+            font-size: 18px;
+            margin-top: 25px;
+            color: var(--primary-color);
+        }
+
+        .content-wrapper p, .content-wrapper li {
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text-color);
+            opacity: 0.9;
+        }
+
+        .content-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 13px;
+        }
+
+        .content-table th, .content-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: left;
+        }
+
+        .content-table th {
+            background-color: rgba(0, 102, 204, 0.1);
+        }
+
+        .legal-footer {
+            text-align: center;
+            font-size: 11px;
+            margin-top: 20px;
+            padding: 20px 0;
+            width: 100%;
+            max-width: 650px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .legal-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            margin: 0 10px;
+        }
     </style>
 </head>
 <body>
@@ -239,7 +296,6 @@
         </div>
     </div>
 
-    <!-- Step 1: Broad Template Selection -->
     <div class="control-section">
         <div class="section-title">Step 1: Select Country / Region Template</div>
         <div class="form-group">
@@ -271,7 +327,6 @@
         </div>
     </div>
 
-    <!-- Step 2: Fine-Tuning Dimensions & Compression -->
     <div class="control-section">
         <div class="section-title">Step 2: Fine-Tune Specifications</div>
         <div class="custom-grid">
@@ -300,6 +355,82 @@
     <a href="#" class="btn-download" id="download-btn" download="official_ready_photo.jpg">Download Processed Photo</a>
 </div>
 
+<!-- High Quality SEO Articles Section for AdSense Approval -->
+<div class="content-wrapper">
+    <h2>Complete Guide to Taking Perfect Passport & Visa Photos at Home</h2>
+    <p>Creating an official government-compliant passport or visa photo doesn't require an expensive trip to a professional studio. By leveraging our intelligent <strong>Universal Passport Photo Resizer</strong>, you can instantly crop, format, and compress your image to match exact requirements globally. However, to ensure your application is never rejected, follow these mandatory baseline rules:</p>
+    
+    <ul>
+        <li><strong>Background:</strong> Always use a plain white or off-white background. Ensure there are no patterns, objects, or shadows visible behind you.</li>
+        <li><strong>Lighting:</strong> Bright, even lighting is crucial. Avoid harsh side-lighting that creates deep shadows on one side of the face or under the eyes.</li>
+        <li><strong>Expression & Biometrics:</strong> Maintain a neutral facial expression. Do not smile broadly, frown, or tilt your head. Keep both eyes open and look directly into the camera lens.</li>
+        <li><strong>Attire:</strong> Wear normal everyday clothing. Avoid uniforms, white shirts (which blend into the background), and excessive jewelry. Head coverings are only permitted for strict religious or medical reasons, and even then, they must not obscure any part of your face.</li>
+    </ul>
+
+    <h2>Official Global Document Size Reference Matrix</h2>
+    <p>Different governments enforce strict digital and physical dimensions for standard applications. Below is a detailed standard directory used natively inside our configuration dashboard:</p>
+    
+    <table class="content-table">
+        <thead>
+            <tr>
+                <th>Country / Standard</th>
+                <th>Dimensions (mm / inches)</th>
+                <th>Target Pixel Ratio</th>
+                <th>File Constraints</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>United States (Passport/Visa)</td>
+                <td>2 x 2 inches</td>
+                <td>600 x 600 px</td>
+                <td>&le; 240 KB, JPEG</td>
+            </tr>
+            <tr>
+                <td>Sri Lanka (Passport/NIC)</td>
+                <td>35 x 45 mm</td>
+                <td>413 x 531 px</td>
+                <td>&le; 150 KB, JPEG</td>
+            </tr>
+            <tr>
+                <td>Schengen Area / Europe</td>
+                <td>35 x 45 mm</td>
+                <td>413 x 531 px</td>
+                <td>&le; 240 KB, JPEG</td>
+            </tr>
+            <tr>
+                <td>Canada (Passport Layout)</td>
+                <td>50 x 70 mm</td>
+                <td>600 x 840 px</td>
+                <td>&le; 600 KB, JPEG</td>
+            </tr>
+            <tr>
+                <td>United Arab Emirates (UAE)</td>
+                <td>43 x 55 mm</td>
+                <td>508 x 650 px</td>
+                <td>&le; 100 KB, JPEG</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Frequently Asked Questions (FAQs)</h2>
+    <p><strong>Q: Can I wear glasses in my passport photo?</strong><br>
+    A: In most countries, including the US and Sri Lanka, prescription or fashion glasses are strictly prohibited to prevent glare and biometric interference. Always remove your glasses before taking the photo.</p>
+    
+    <p><strong>Q: Why does the system compress my file automatically?</strong><br>
+    A: Most official portals (like immigration and department portals) enforce strict maximum payload capacities. Our tool uses smart iterative compression algorithms to shrink the storage weight without diminishing crucial face details.</p>
+
+    <p><strong>Q: What is the biometric circle template in the preview box?</strong><br>
+    A: The dashed pattern serves as an alignment indicator. Your head and face structure should perfectly fit within the boundary markers to comply with standard facial structure tracking requirements globally.</p>
+</div>
+
+<!-- Mandatory Privacy Policy & Terms Links for AdSense -->
+<div class="legal-footer">
+    <p>&copy; 2026 Global Passport Resizer Tool. All Rights Reserved.</p>
+    <a href="#privacy" onclick="alert('Privacy Policy:\n\nWe care deeply about your privacy. This application performs all image adjustments, cropping, and rendering entirely inside your local web browser using client-side HTML5 Canvas. Your uploaded images are never sent, stored, or processed on any remote server. Your personal data remains 100% secure.')">Privacy Policy</a> | 
+    <a href="#terms" onclick="alert('Terms of Service:\n\nThis application is provided as a free utility tool. While we make every attempt to supply exact structural presets according to standard government specifications, users are ultimately responsible for ensuring their photos match up-to-date regional requirements prior to submission.')">Terms of Service</a>
+</div>
+
 <script>
     const dropZone = document.getElementById('drop-zone');
     const fileInput = document.getElementById('file-input');
@@ -319,7 +450,6 @@
     
     let originalImage = null;
     
-    // Comprehensive Database of Global Specifications
     const presets = {
         us: { w: 600, h: 600, maxKB: 240 },
         uk: { w: 413, h: 531, maxKB: 500 },
@@ -423,7 +553,6 @@
         canvas.width = targetW;
         canvas.height = targetH;
         
-        // Fix aspect ratio representation dynamically inside preview box
         previewBox.style.height = (220 * (targetH / targetW)) + 'px';
         
         const targetAspect = targetW / targetH;
@@ -445,7 +574,6 @@
         let dataUrl = canvas.toDataURL('image/jpeg', initialQuality);
         let sizeKB = Math.round((dataUrl.length * 3 / 4) / 1024);
         
-        // Auto compress strictly below max file size limit if still exceeds
         while (sizeKB > maxKB && initialQuality > 0.1) {
             initialQuality -= 0.05;
             dataUrl = canvas.toDataURL('image/jpeg', initialQuality);
